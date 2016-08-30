@@ -47,7 +47,7 @@ class OpenIdProviderController < ApplicationController
   end
 
   def index
-    response.headers['X-XRDS-Location'] = url_for(:controller=>'open_id_provider', :action=>'idp_xrds', :only_path=>false)
+    response.headers['X-XRDS-Location'] = url_for(:controller=>'open_id_provider', :action=>'idp_xrds', :only_path=>false, :protocol => 'https://')
   end
 
   def idp_xrds
@@ -79,7 +79,7 @@ class OpenIdProviderController < ApplicationController
     if accept and accept.include?('application/xrds+xml')
       user_xrds
     else
-      xrds_url = url_for(:controller=>'open_id_provider',:id=>params[:id], :action=>'user_xrds', :only_path=>false)
+      xrds_url = url_for(:controller=>'open_id_provider',:id=>params[:id], :action=>'user_xrds', :only_path=>false, :protocol => 'https://')
       response.headers['X-XRDS-Location'] = xrds_url
     end
   end
@@ -102,7 +102,7 @@ class OpenIdProviderController < ApplicationController
 
   def server
     if @server.nil?
-      server_url = url_for :action => 'index', :only_path => false
+      server_url = url_for :action => 'index', :only_path => false, :protocol => 'https://'
       dir = Rails.root.join('db').join('openid-store')
       store = OpenID::Store::Filesystem.new(dir)
       @server = Server.new(store, server_url)
@@ -179,7 +179,7 @@ class OpenIdProviderController < ApplicationController
     if request.get?
       url = url_for(params)
     else
-      url = url_for(:controller => params[:controller], :action => params[:action], :id => params[:id], :project_id => params[:project_id])
+      url = url_for(:controller => params[:controller], :action => params[:action], :id => params[:id], :project_id => params[:project_id], :only_path => false, :protocol => 'https://')
     end
     redirect_to :controller => "account", :action => "login", :back_url => url
   end

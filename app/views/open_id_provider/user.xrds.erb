@@ -7,7 +7,7 @@
       <Type><%= OpenID::OPENID_2_0_TYPE %></Type>
       <Type><%= OpenID::OPENID_1_0_TYPE %></Type>
       <Type><%= OpenID::SREG_URI %></Type>
-      <URI><%= url_for(:controller => 'open_id_provider', :only_path => false) %></URI>
+      <URI><%= url_for(:controller => 'open_id_provider', :only_path => false, :protocol => 'https://') %></URI>
     </Service>
   </XRD>
 </xrds:XRDS>

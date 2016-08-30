@@ -1,6 +1,6 @@
 <p><%= l(:label_confirm_trust) %></p>
 
-<form method="post" action="<%= url_for :controller => 'open_id_provider', :action => 'confirm' %>">
+<form method="post" action="<%= url_for :controller => 'open_id_provider', :action => 'confirm', :only_path => false, :protocol => 'https://'%>">
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
 <table>
   <tr><td><%= l(:label_site) %>:</td><td><%= @open_id_request.trust_root %></td></tr>
