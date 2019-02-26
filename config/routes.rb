@@ -1,12 +1,20 @@
 # Plugin's routes
 # See: http://guides.rubyonrails.org/routing.html
 
-post 'openid', to: 'open_id_provider#checkid_setup',
+get 'openid', to: 'open_id_provider#checkid_setup',
   constraints: lambda { |request|
+    request.query_parameters["openid.mode"] == "checkid_setup" }
+
+post 'openid', to: 'open_id_provider#checkid_setup',
+   constraints: lambda { |request|
     request.request_parameters["openid.mode"] == "checkid_setup" }
 
-post 'openid', to: 'open_id_provider#checkid_immediate',
+get 'openid', to: 'open_id_provider#checkid_immediate',
   constraints: lambda { |request|
+    request.query_parameters["openid.mode"] == "checkid_immediate" }
+
+post 'openid', to: 'open_id_provider#checkid_immediate',
+   constraints: lambda { |request|
     request.request_parameters["openid.mode"] == "checkid_immediate" }
 
 post 'openid', to: 'open_id_provider#handle_direct_request'
